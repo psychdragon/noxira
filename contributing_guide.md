@@ -1,6 +1,6 @@
-# Contributing to Decentralized Social
+# Contributing to Noxira
 
-First off, thank you for considering contributing to Decentralized Social! It's people like you that make this platform a reality. This document provides guidelines and instructions for contributing to our codebase.
+First off, thank you for considering contributing to Noxira! It's people like you that make this platform a reality. This document provides guidelines and instructions for contributing to our codebase.
 
 ## Code of Conduct
 
