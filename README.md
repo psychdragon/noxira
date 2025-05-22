@@ -1,6 +1,6 @@
 # NOXIRA Decentralized Social Platform
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: GNU](https://img.shields.io/badge/License-GNU-blue.svg)](https://opensource.org/licenses/GNU)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![GitHub Stars](https://img.shields.io/github/stars/decentralized-social/platform?style=social)](https://github.com/decentralized-social/platform)
 [![Discord](https://img.shields.io/discord/123456789?logo=discord&label=Discord&color=5865F2)](https://discord.gg/decentralized-social)
