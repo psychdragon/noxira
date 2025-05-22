@@ -1,4 +1,4 @@
-# Nexera: Member-to-Member Services Ecosystem
+# Noxira: Member-to-Member Services Ecosystem
 ## Expanding Beyond Traditional Social Media
 
 ---
