@@ -8,7 +8,7 @@
 ### GPU Compute Sharing Network
 
 **Core Concept:** 
-Members can share idle GPU resources to earn NXT tokens, while others can purchase GPU time for AI training, rendering, scientific computation, and more.
+Members can share idle GPU resources to earn NNXR tokens, while others can purchase GPU time for AI training, rendering, scientific computation, and more.
 
 **Implementation:**
 - WebGPU and WebAssembly integration for browser-based computation
