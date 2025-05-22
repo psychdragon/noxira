@@ -9,7 +9,7 @@ A blockchain-powered social media platform where users own their data, earn from
 
 ## 🌐 Overview
 
-Decentralized Social (DS) is a next-generation social platform built on blockchain technology that puts users first. Unlike traditional social networks that extract value from user data and attention, DS distributes value to its members through a token economy that rewards contributions and enables access to premium services.
+Noxira is a next-generation social platform built on blockchain technology that puts users first. Unlike traditional social networks that extract value from user data and attention, DS distributes value to its members through a token economy that rewards contributions and enables access to premium services.
 
 ### Key Features
 
@@ -104,7 +104,7 @@ We welcome contributions from developers of all experience levels! Please see ou
 
 ## 📊 Tokenomics
 
-The DS Token (DST) serves multiple functions within the ecosystem:
+The Noxira Token (NNXR) serves multiple functions within the ecosystem:
 
 - **Access**: Purchase premium features and services
 - **Rewards**: Compensation for valuable contributions  
@@ -112,7 +112,7 @@ The DS Token (DST) serves multiple functions within the ecosystem:
 - **Staking**: Earn passive income through platform participation
 - **Value Exchange**: Medium of exchange for creator services
 
-Total Supply: 1,000,000,000 DST
+Total Supply: 1,000,000,000 NNXR
 
 | Allocation | Percentage | Purpose | Vesting |
 |------------|------------|---------|---------|
@@ -161,7 +161,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Discord**: [Join our server](https://discord.gg/decentralized-social)
 - **Twitter**: [@DecentralizedSocial](https://twitter.com/DecentralizedSocial)
-- **Email**: contact@decentralized.social
+- **Email**: shahril@azwin.my
 
 ---
 
