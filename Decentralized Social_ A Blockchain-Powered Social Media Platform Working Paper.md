@@ -1,15 +1,15 @@
-# Decentralized Social: A Blockchain-Powered Social Media Platform
+# Noxira: A Blockchain-Powered Social Media Platform
 ## Working Paper | May 2025
 
 ---
 
 ## 1. Executive Summary
 
-This working paper outlines the vision, architecture, and implementation strategy for "Decentralized Social" (DS), a blockchain-based social media platform that leverages decentralized technologies to create a community-owned digital ecosystem. Unlike traditional social networks that extract value from user data and attention, DS distributes value to its members through a token economy that rewards contributions and enables access to premium services.
+This working paper outlines the vision, architecture, and implementation strategy for "Noxira", a blockchain-based social media platform that leverages decentralized technologies to create a community-owned digital ecosystem. Unlike traditional social networks that extract value from user data and attention, DS distributes value to its members through a token economy that rewards contributions and enables access to premium services.
 
-The platform will launch with an invitation-only membership model to build a quality-focused community before expanding to broader public access. The native utility token (DST) will power all in-platform transactions while keeping basic membership free, ensuring accessibility while maintaining economic sustainability.
+The platform will launch with an invitation-only membership model to build a quality-focused community before expanding to broader public access. The native utility token (NNXR) will power all in-platform transactions while keeping basic membership free, ensuring accessibility while maintaining economic sustainability.
 
-This document serves as a blueprint for developers, potential investors, and founding community members to understand the technical requirements, economic model, and development roadmap necessary to bring DS from concept to reality.
+This document serves as a blueprint for developers, potential investors, and founding community members to understand the technical requirements, economic model, and development roadmap necessary to bring Noxira from concept to reality.
 
 ---
 
@@ -119,7 +119,7 @@ This document serves as a blueprint for developers, potential investors, and fou
 
 ### 4.1 Token Utility
 
-The DS Token (DST) serves multiple functions within the ecosystem:
+The Noxira Token (NNXR) serves multiple functions within the ecosystem:
 
 * **Access**: Purchase premium features and services
 * **Rewards**: Compensation for valuable contributions
@@ -355,7 +355,7 @@ The DS Token (DST) serves multiple functions within the ecosystem:
 
 ## 10. Conclusion & Next Steps
 
-Decentralized Social represents a significant opportunity to reimagine social media through blockchain technology, creating a user-owned platform that aligns incentives between creators, consumers, and service providers. The combination of free access with a token-powered economy enables both broad participation and sustainable value creation.
+Noxira represents a significant opportunity to reimagine social media through blockchain technology, creating a user-owned platform that aligns incentives between creators, consumers, and service providers. The combination of free access with a token-powered economy enables both broad participation and sustainable value creation.
 
 ### 10.1 Immediate Action Items
 
@@ -366,16 +366,16 @@ Decentralized Social represents a significant opportunity to reimagine social me
 5. **Funding Strategy**: Prepare materials for seed funding round
 6. **Legal Framework**: Establish appropriate legal entity and regulatory compliance
 
-With appropriate resources and execution, Decentralized Social can move from concept to alpha launch within six months, creating the foundation for a truly community-owned social media platform that benefits all participants in its ecosystem.
+With appropriate resources and execution, Noxira can move from concept to alpha launch within six months, creating the foundation for a truly community-owned social media platform that benefits all participants in its ecosystem.
 
 ---
 
 ## Contact Information
 
-Project Lead: [Your Name]  
-Email: [Your Email]  
-Website: [Project Website]  
-Community: [Discord/Telegram Link]
+Project Lead: Shahril Azwin Zainul Abidin  
+Email: shahril@azwin.my
+Website: http://azwin.my/noxira  
+Community: TBD
 
 ---
 
