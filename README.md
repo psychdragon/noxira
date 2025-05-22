@@ -70,7 +70,7 @@ We are currently building the core architecture and assembling our team. This re
 
 1. Clone the repository
 ```bash
-git clone https://github.com/noxira.git
+git clone https://github.com/psychdragon/noxira.git
 cd platform
 ```
 
