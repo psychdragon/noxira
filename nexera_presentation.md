@@ -1,4 +1,4 @@
-# Nexera
+# Noxira
 ## A Decentralized Social Media Platform
 ### Stakeholder Presentation | May 2025
 
@@ -8,7 +8,7 @@
 
 **Redefining Social Media Through Decentralization**
 
-Nexera is building a new era of social connectivity where:
+Noxira is building a new era of social connectivity where:
 
 - **Users own their data and content**
 - **Value flows to creators and contributors**
@@ -31,7 +31,7 @@ Nexera is building a new era of social connectivity where:
 
 ---
 
-## Our Solution: Nexera
+## Our Solution: Noxira
 
 ### A New Social Paradigm
 
@@ -87,7 +87,7 @@ Nexera is building a new era of social connectivity where:
 
 ---
 
-## Token Economy: The Nexera Token (NXT)
+## Token Economy: The Noxira Token (NNXR)
 
 ### Aligning Incentives Across the Ecosystem
 
@@ -108,7 +108,7 @@ Nexera is building a new era of social connectivity where:
 
 ## Token Distribution
 
-**Total Supply: 1,000,000,000 NXT**
+**Total Supply: 1,000,000,000 NNXR**
 
 ![Token Distribution Chart](https://placeholder.com/800x400)
 
@@ -248,7 +248,7 @@ Nexera is building a new era of social connectivity where:
 
 ## Competitive Advantage
 
-### Why Nexera Will Succeed
+### Why Noxira Will Succeed
 
 ![Competitive Positioning](https://placeholder.com/800x400)
 
@@ -304,7 +304,7 @@ Nexera is building a new era of social connectivity where:
 
 ---
 
-## Why Join Nexera Now?
+## Why Join Noxira Now?
 
 ### A Unique Opportunity
 
