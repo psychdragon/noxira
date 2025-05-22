@@ -1,0 +1,232 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
+
+/**
+ * @title Noxira Token
+ * @dev Implementation of the Noxira (NNXR) Token
+ * This token powers the Noxira decentralized social media platform's economy,
+ * facilitating content creator rewards, governance participation, and service marketplace transactions.
+ */
+contract NoxiraToken is ERC20, ERC20Burnable, AccessControl, ERC20Permit, ERC20Votes {
+    // Create roles for platform administration
+    bytes32 public constant GOVERNANCE_ROLE = keccak256("GOVERNANCE_ROLE");
+    bytes32 public constant TREASURY_ROLE = keccak256("TREASURY_ROLE");
+    bytes32 public constant SERVICE_PROVIDER_ROLE = keccak256("SERVICE_PROVIDER_ROLE");
+    
+    // Platform addresses
+    address public communityTreasury;
+    address public platformReserve;
+    
+    // Platform parameters
+    uint256 public constant TOTAL_SUPPLY = 1_000_000_000 * 10**18; // 1 billion tokens with 18 decimals
+    uint256 public contentCreatorRewardRate = 10; // % of transaction fees that go to content creators
+    uint256 public platformFeeRate = 5; // % platform fee on service marketplace transactions
+    
+    // Service marketplace mappings
+    mapping(address => bool) public verifiedServiceProviders;
+    mapping(address => uint256) public serviceProviderReputation;
+    
+    // User reputation system
+    mapping(address => uint256) public userReputation;
+    mapping(address => uint256) public userInvitationsRemaining;
+    
+    // Events
+    event ServiceProviderRegistered(address indexed provider, uint256 timestamp);
+    event ServicePurchased(address indexed user, address indexed provider, uint256 amount, uint256 fee);
+    event ContentRewarded(address indexed creator, uint256 amount, string contentId);
+    event UserInvited(address indexed inviter, address indexed invitee, uint256 timestamp);
+    event ReputationUpdated(address indexed user, uint256 oldReputation, uint256 newReputation);
+
+    /**
+     * @dev Initializes the Noxira token with its initial distribution
+     * @param _communityTreasury Address of the community treasury
+     * @param _teamWallet Address of the founding team's wallet
+     * @param _earlyBackers Address for early backers' allocation
+     * @param _platformReserve Address for the platform reserve
+     */
+    constructor(
+        address _communityTreasury,
+        address _teamWallet,
+        address _earlyBackers,
+        address _platformReserve
+    ) ERC20("Noxira", "NNXR") ERC20Permit("Noxira") {
+        // Assign roles
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(GOVERNANCE_ROLE, msg.sender);
+        _grantRole(TREASURY_ROLE, _communityTreasury);
+        
+        // Set platform addresses
+        communityTreasury = _communityTreasury;
+        platformReserve = _platformReserve;
+        
+        // Initial token distribution according to whitepaper
+        // 40% Community Treasury
+        _mint(_communityTreasury, TOTAL_SUPPLY * 40 / 100);
+        
+        // 15% Founding Team
+        _mint(_teamWallet, TOTAL_SUPPLY * 15 / 100);
+        
+        // 10% Early Backers
+        _mint(_earlyBackers, TOTAL_SUPPLY * 10 / 100);
+        
+        // 15% Platform Reserve
+        _mint(_platformReserve, TOTAL_SUPPLY * 15 / 100);
+        
+        // 20% Public Distribution (minted but held in reserve for future distribution)
+        _mint(_platformReserve, TOTAL_SUPPLY * 20 / 100);
+    }
+
+    /**
+     * @dev Registers a new service provider on the platform
+     * @param provider Address of the service provider
+     * @param initialReputation Initial reputation score for the provider
+     */
+    function registerServiceProvider(address provider, uint256 initialReputation) external onlyRole(GOVERNANCE_ROLE) {
+        require(!verifiedServiceProviders[provider], "Provider already registered");
+        
+        verifiedServiceProviders[provider] = true;
+        serviceProviderReputation[provider] = initialReputation;
+        _grantRole(SERVICE_PROVIDER_ROLE, provider);
+        
+        emit ServiceProviderRegistered(provider, block.timestamp);
+    }
+
+    /**
+     * @dev Facilitates a service purchase on the marketplace
+     * @param provider Address of the service provider
+     * @param amount Amount of tokens to pay for the service
+     * @param contentId Optional content ID if this service is related to content
+     */
+    function purchaseService(address provider, uint256 amount, string memory contentId) external {
+        require(verifiedServiceProviders[provider], "Provider not verified");
+        require(balanceOf(msg.sender) >= amount, "Insufficient balance");
+        
+        // Calculate platform fee
+        uint256 fee = (amount * platformFeeRate) / 100;
+        uint256 providerAmount = amount - fee;
+        
+        // Transfer tokens
+        _transfer(msg.sender, provider, providerAmount);
+        _transfer(msg.sender, platformReserve, fee);
+        
+        // Update reputations
+        _updateReputation(msg.sender, 1);
+        _updateReputation(provider, 2);
+        
+        emit ServicePurchased(msg.sender, provider, amount, fee);
+    }
+
+    /**
+     * @dev Rewards content creators for their contributions
+     * @param creator Address of the content creator
+     * @param amount Amount of tokens to reward
+     * @param contentId Identifier of the content being rewarded
+     */
+    function rewardContent(address creator, uint256 amount, string memory contentId) external onlyRole(TREASURY_ROLE) {
+        require(balanceOf(communityTreasury) >= amount, "Insufficient treasury balance");
+        
+        // Transfer reward from treasury to creator
+        _transfer(communityTreasury, creator, amount);
+        
+        // Update creator reputation
+        _updateReputation(creator, 5);
+        
+        emit ContentRewarded(creator, amount, contentId);
+    }
+
+    /**
+     * @dev Allows users to invite others to the platform (invitation-only model)
+     * @param invitee Address of the user being invited
+     */
+    function inviteUser(address invitee) external {
+        require(userInvitationsRemaining[msg.sender] > 0, "No invitations remaining");
+        require(userReputation[invitee] == 0, "User already invited");
+        
+        // Decrease inviter's remaining invitations
+        userInvitationsRemaining[msg.sender]--;
+        
+        // Set initial reputation for invitee
+        userReputation[invitee] = 10;
+        
+        // Give new user some initial invitations based on inviter's reputation
+        uint256 initialInvitations = userReputation[msg.sender] / 100; // Scale based on inviter's reputation
+        if (initialInvitations > 0) {
+            userInvitationsRemaining[invitee] = initialInvitations;
+        } else {
+            userInvitationsRemaining[invitee] = 1; // Minimum 1 invitation
+        }
+        
+        emit UserInvited(msg.sender, invitee, block.timestamp);
+    }
+
+    /**
+     * @dev Updates a user's reputation score
+     * @param user Address of the user
+     * @param points Number of reputation points to add
+     */
+    function _updateReputation(address user, uint256 points) internal {
+        uint256 oldReputation = userReputation[user];
+        userReputation[user] += points;
+        
+        // Adjust invitations based on reputation milestones
+        if (userReputation[user] / 100 > oldReputation / 100) {
+            userInvitationsRemaining[user] += 1;
+        }
+        
+        emit ReputationUpdated(user, oldReputation, userReputation[user]);
+    }
+
+    /**
+     * @dev Allows governance to update platform parameters
+     * @param newContentCreatorRewardRate New reward rate for content creators
+     * @param newPlatformFeeRate New platform fee rate
+     */
+    function updatePlatformParameters(
+        uint256 newContentCreatorRewardRate,
+        uint256 newPlatformFeeRate
+    ) external onlyRole(GOVERNANCE_ROLE) {
+        require(newContentCreatorRewardRate <= 50, "Reward rate too high");
+        require(newPlatformFeeRate <= 20, "Platform fee too high");
+        
+        contentCreatorRewardRate = newContentCreatorRewardRate;
+        platformFeeRate = newPlatformFeeRate;
+    }
+
+    /**
+     * @dev Required override to update voting power when tokens are transferred
+     * @param from Address tokens are transferred from
+     * @param to Address tokens are transferred to
+     * @param amount Amount of tokens transferred
+     */
+    function _afterTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal override(ERC20, ERC20Votes) {
+        super._afterTokenTransfer(from, to, amount);
+    }
+
+    /**
+     * @dev Required override when minting tokens
+     * @param to Address receiving the minted tokens
+     * @param amount Amount of tokens being minted
+     */
+    function _mint(address to, uint256 amount) internal override(ERC20, ERC20Votes) {
+        super._mint(to, amount);
+    }
+
+    /**
+     * @dev Required override when burning tokens
+     * @param account Address whose tokens are being burned
+     * @param amount Amount of tokens being burned
+     */
+    function _burn(address account, uint256 amount) internal override(ERC20, ERC20Votes) {
+        super._burn(account, amount);
+    }
+}
